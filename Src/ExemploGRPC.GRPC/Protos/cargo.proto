@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+option csharp_namespace = "ExemploGRPC.GRPC";
+
+package cargo;
+
+// Cargo Service - provides CRUD operations for Cargo
+service CargoService {
+  // Get a cargo by ID
+  rpc GetCargo (GetCargoRequest) returns (CargoResponse);
+  
+  // Get a cargo by name
+  rpc GetCargoByNome (GetCargoByNomeRequest) returns (CargoResponse);
+  
+  // Get all cargos
+  rpc GetAllCargos (GetAllCargosRequest) returns (GetAllCargosResponse);
+  
+  // Create a new cargo
+  rpc CreateCargo (CreateCargoRequest) returns (CargoResponse);
+  
+  // Update an existing cargo
+  rpc UpdateCargo (UpdateCargoRequest) returns (CargoResponse);
+  
+  // Delete a cargo
+  rpc DeleteCargo (DeleteCargoRequest) returns (DeleteCargoResponse);
+}
+
+// Request to get cargo by ID
+message GetCargoRequest {
+  int32 id = 1;
+}
+
+// Request to get cargo by name
+message GetCargoByNomeRequest {
+  string nome = 1;
+}
+
+// Request to get all cargos
+message GetAllCargosRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+}
+
+// Response with multiple cargos
+message GetAllCargosResponse {
+  repeated CargoResponse cargos = 1;
+}
+
+// Request to create a cargo
+message CreateCargoRequest {
+  string nome = 1;
+  string descricao = 2;
+  double nivel_salarial = 3;
+}
+
+// Request to update a cargo
+message UpdateCargoRequest {
+  int32 id = 1;
+  string nome = 2;
+  string descricao = 3;
+  double nivel_salarial = 4;
+}
+
+// Request to delete a cargo
+message DeleteCargoRequest {
+  int32 id = 1;
+}
+
+// Response for delete operation
+message DeleteCargoResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Cargo response message
+message CargoResponse {
+  int32 id = 1;
+  string nome = 2;
+  string descricao = 3;
+  double nivel_salarial = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
