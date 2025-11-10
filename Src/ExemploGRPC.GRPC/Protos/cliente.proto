@@ -1,0 +1,124 @@
+syntax = "proto3";
+
+option csharp_namespace = "ExemploGRPC.GRPC";
+
+package cliente;
+
+// Cliente Service - provides CRUD operations for Cliente
+service ClienteService {
+  // Get a cliente by ID
+  rpc GetCliente (GetClienteRequest) returns (ClienteResponse);
+  
+  // Get a cliente by CPF
+  rpc GetClienteByCpf (GetClienteByCpfRequest) returns (ClienteResponse);
+  
+  // Get all clientes
+  rpc GetAllClientes (GetAllClientesRequest) returns (GetAllClientesResponse);
+  
+  // Create a new cliente
+  rpc CreateCliente (CreateClienteRequest) returns (ClienteResponse);
+  
+  // Update an existing cliente
+  rpc UpdateCliente (UpdateClienteRequest) returns (ClienteResponse);
+  
+  // Delete a cliente
+  rpc DeleteCliente (DeleteClienteRequest) returns (DeleteClienteResponse);
+  
+  // Add a cargo to a cliente
+  rpc AddCargoToCliente (AddCargoToClienteRequest) returns (AddCargoToClienteResponse);
+  
+  // Remove a cargo from a cliente
+  rpc RemoveCargoFromCliente (RemoveCargoFromClienteRequest) returns (RemoveCargoFromClienteResponse);
+}
+
+// Request to get cliente by ID
+message GetClienteRequest {
+  string id = 1;
+}
+
+// Request to get cliente by CPF
+message GetClienteByCpfRequest {
+  string cpf = 1;
+}
+
+// Request to get all clientes
+message GetAllClientesRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+}
+
+// Response with multiple clientes
+message GetAllClientesResponse {
+  repeated ClienteResponse clientes = 1;
+}
+
+// Request to create a cliente
+message CreateClienteRequest {
+  string nome = 1;
+  string email = 2;
+  string cpf = 3;
+  string telefone = 4;
+}
+
+// Request to update a cliente
+message UpdateClienteRequest {
+  string id = 1;
+  string nome = 2;
+  string email = 3;
+  string telefone = 4;
+}
+
+// Request to delete a cliente
+message DeleteClienteRequest {
+  string id = 1;
+}
+
+// Response for delete operation
+message DeleteClienteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Request to add cargo to cliente
+message AddCargoToClienteRequest {
+  string cliente_id = 1;
+  string cargo_id = 2;
+}
+
+// Response for add cargo operation
+message AddCargoToClienteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Request to remove cargo from cliente
+message RemoveCargoFromClienteRequest {
+  string cliente_id = 1;
+  string cargo_id = 2;
+}
+
+// Response for remove cargo operation
+message RemoveCargoFromClienteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Cliente response message
+message ClienteResponse {
+  string id = 1;
+  string nome = 2;
+  string email = 3;
+  string cpf = 4;
+  string telefone = 5;
+  string created_at = 6;
+  string updated_at = 7;
+  repeated CargoMessage cargos = 8;
+}
+
+// Cargo message (used in Cliente response)
+message CargoMessage {
+  string id = 1;
+  string nome = 2;
+  string descricao = 3;
+  double nivel_salarial = 4;
+}

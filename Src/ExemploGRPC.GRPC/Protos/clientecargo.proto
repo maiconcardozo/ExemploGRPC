@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+option csharp_namespace = "ExemploGRPC.GRPC";
+
+package clientecargo;
+
+// ClienteCargo Service - manages the association between Cliente and Cargo
+service ClienteCargoService {
+  // Get a cliente-cargo association by ID
+  rpc GetClienteCargo (GetClienteCargoRequest) returns (ClienteCargoResponse);
+  
+  // Get all associations for a cliente
+  rpc GetClienteCargosByClienteId (GetClienteCargosByClienteIdRequest) returns (GetClienteCargosResponse);
+  
+  // Get all associations for a cargo
+  rpc GetClienteCargosByCargoId (GetClienteCargosByCargoIdRequest) returns (GetClienteCargosResponse);
+  
+  // Get all associations
+  rpc GetAllClienteCargos (GetAllClienteCargosRequest) returns (GetClienteCargosResponse);
+  
+  // Create a new association
+  rpc CreateClienteCargo (CreateClienteCargoRequest) returns (ClienteCargoResponse);
+  
+  // Update an association
+  rpc UpdateClienteCargo (UpdateClienteCargoRequest) returns (ClienteCargoResponse);
+  
+  // Delete an association
+  rpc DeleteClienteCargo (DeleteClienteCargoRequest) returns (DeleteClienteCargoResponse);
+}
+
+// Request to get cliente-cargo by ID
+message GetClienteCargoRequest {
+  string id = 1;
+}
+
+// Request to get associations by cliente ID
+message GetClienteCargosByClienteIdRequest {
+  string cliente_id = 1;
+}
+
+// Request to get associations by cargo ID
+message GetClienteCargosByCargoIdRequest {
+  string cargo_id = 1;
+}
+
+// Request to get all associations
+message GetAllClienteCargosRequest {
+}
+
+// Response with multiple associations
+message GetClienteCargosResponse {
+  repeated ClienteCargoResponse cliente_cargos = 1;
+}
+
+// Request to create an association
+message CreateClienteCargoRequest {
+  string cliente_id = 1;
+  string cargo_id = 2;
+  bool is_principal = 3;
+}
+
+// Request to update an association
+message UpdateClienteCargoRequest {
+  string id = 1;
+  string data_fim = 2;
+  bool is_principal = 3;
+}
+
+// Request to delete an association
+message DeleteClienteCargoRequest {
+  string id = 1;
+}
+
+// Response for delete operation
+message DeleteClienteCargoResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// ClienteCargo response message
+message ClienteCargoResponse {
+  string id = 1;
+  string cliente_id = 2;
+  string cargo_id = 3;
+  string data_atribuicao = 4;
+  string data_fim = 5;
+  bool is_principal = 6;
+}
