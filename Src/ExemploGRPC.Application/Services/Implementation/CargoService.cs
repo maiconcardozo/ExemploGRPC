@@ -21,7 +21,7 @@ public class CargoService : ICargoService
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task<CargoDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<CargoDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         var cargo = await _unitOfWork.Cargos.GetByIdAsync(id, cancellationToken);
         return cargo == null ? null : _mapper.Map<CargoDto>(cargo);
@@ -60,7 +60,7 @@ public class CargoService : ICargoService
         return _mapper.Map<CargoDto>(cargo);
     }
 
-    public async Task<CargoDto> UpdateAsync(Guid id, UpdateCargoDto dto, CancellationToken cancellationToken = default)
+    public async Task<CargoDto> UpdateAsync(int id, UpdateCargoDto dto, CancellationToken cancellationToken = default)
     {
         var cargo = await _unitOfWork.Cargos.GetByIdAsync(id, cancellationToken)
             ?? throw new KeyNotFoundException($"Cargo com ID {id} não encontrado");
@@ -72,7 +72,7 @@ public class CargoService : ICargoService
         return _mapper.Map<CargoDto>(cargo);
     }
 
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var cargo = await _unitOfWork.Cargos.GetByIdAsync(id, cancellationToken)
             ?? throw new KeyNotFoundException($"Cargo com ID {id} não encontrado");

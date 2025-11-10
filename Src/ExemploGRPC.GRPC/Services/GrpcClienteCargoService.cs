@@ -22,7 +22,7 @@ public class GrpcClienteCargoService : ClienteCargoService.ClienteCargoServiceBa
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             var clienteCargo = await _clienteCargoService.GetByIdAsync(id, context.CancellationToken);
 
             if (clienteCargo == null)
@@ -46,7 +46,7 @@ public class GrpcClienteCargoService : ClienteCargoService.ClienteCargoServiceBa
     {
         try
         {
-            var clienteId = Guid.Parse(request.ClienteId);
+            var clienteId = request.ClienteId;
             var clienteCargos = await _clienteCargoService.GetByClienteIdAsync(clienteId, context.CancellationToken);
 
             var response = new GetClienteCargosResponse();
@@ -68,7 +68,7 @@ public class GrpcClienteCargoService : ClienteCargoService.ClienteCargoServiceBa
     {
         try
         {
-            var cargoId = Guid.Parse(request.CargoId);
+            var cargoId = request.CargoId;
             var clienteCargos = await _clienteCargoService.GetByCargoIdAsync(cargoId, context.CancellationToken);
 
             var response = new GetClienteCargosResponse();
@@ -109,8 +109,8 @@ public class GrpcClienteCargoService : ClienteCargoService.ClienteCargoServiceBa
         {
             var createDto = new CreateClienteCargoDto
             {
-                ClienteId = Guid.Parse(request.ClienteId),
-                CargoId = Guid.Parse(request.CargoId),
+                ClienteId = request.ClienteId,
+                CargoId = request.CargoId,
                 IsPrincipal = request.IsPrincipal
             };
 
@@ -140,7 +140,7 @@ public class GrpcClienteCargoService : ClienteCargoService.ClienteCargoServiceBa
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             var updateDto = new UpdateClienteCargoDto
             {
                 DataFim = string.IsNullOrWhiteSpace(request.DataFim) ? null : DateTime.Parse(request.DataFim),
@@ -173,7 +173,7 @@ public class GrpcClienteCargoService : ClienteCargoService.ClienteCargoServiceBa
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             await _clienteCargoService.DeleteAsync(id, context.CancellationToken);
 
             return new DeleteClienteCargoResponse
@@ -201,9 +201,9 @@ public class GrpcClienteCargoService : ClienteCargoService.ClienteCargoServiceBa
     {
         return new ClienteCargoResponse
         {
-            Id = clienteCargo.Id.ToString(),
-            ClienteId = clienteCargo.ClienteId.ToString(),
-            CargoId = clienteCargo.CargoId.ToString(),
+            Id = clienteCargo.Id,
+            ClienteId = clienteCargo.ClienteId,
+            CargoId = clienteCargo.CargoId,
             DataAtribuicao = clienteCargo.DataAtribuicao.ToString("O"),
             DataFim = clienteCargo.DataFim?.ToString("O") ?? string.Empty,
             IsPrincipal = clienteCargo.IsPrincipal

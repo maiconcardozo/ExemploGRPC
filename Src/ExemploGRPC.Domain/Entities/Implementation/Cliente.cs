@@ -1,4 +1,4 @@
-using ExemploGRPC.Domain.Entities.Base;
+using Foundation.Base.Domain.Implementation;
 
 namespace ExemploGRPC.Domain.Entities.Implementation;
 
@@ -6,7 +6,7 @@ namespace ExemploGRPC.Domain.Entities.Implementation;
 /// Cliente entity - Aggregate Root
 /// Represents a client in the system
 /// </summary>
-public class Cliente : EntityBase
+public class Cliente : Entity
 {
     /// <summary>
     /// Client's full name
@@ -60,7 +60,7 @@ public class Cliente : EntityBase
         Nome = nome;
         Email = email;
         Telefone = telefone;
-        MarkAsUpdated();
+        UpdateAuditInfo("System");
         Validate();
     }
 
@@ -78,23 +78,23 @@ public class Cliente : EntityBase
 
         var clienteCargo = new ClienteCargo(this.Id, cargo.Id);
         ClienteCargos.Add(clienteCargo);
-        MarkAsUpdated();
+        UpdateAuditInfo("System");
     }
 
     /// <summary>
     /// Removes a cargo (position) from this client
     /// </summary>
-    public void RemoveCargo(Guid cargoId)
+    public void RemoveCargo(int cargoId)
     {
         var clienteCargo = ClienteCargos.FirstOrDefault(cc => cc.CargoId == cargoId);
         if (clienteCargo == null)
             throw new InvalidOperationException("Cargo não encontrado para este cliente");
 
         ClienteCargos.Remove(clienteCargo);
-        MarkAsUpdated();
+        UpdateAuditInfo("System");
     }
 
-    public override void Validate()
+    public void Validate()
     {
         if (string.IsNullOrWhiteSpace(Nome))
             throw new ArgumentException("Nome é obrigatório", nameof(Nome));

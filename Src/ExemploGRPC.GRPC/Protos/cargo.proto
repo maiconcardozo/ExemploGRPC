@@ -27,7 +27,7 @@ service CargoService {
 
 // Request to get cargo by ID
 message GetCargoRequest {
-  string id = 1;
+  int32 id = 1;
 }
 
 // Request to get cargo by name
@@ -55,7 +55,7 @@ message CreateCargoRequest {
 
 // Request to update a cargo
 message UpdateCargoRequest {
-  string id = 1;
+  int32 id = 1;
   string nome = 2;
   string descricao = 3;
   double nivel_salarial = 4;
@@ -63,7 +63,7 @@ message UpdateCargoRequest {
 
 // Request to delete a cargo
 message DeleteCargoRequest {
-  string id = 1;
+  int32 id = 1;
 }
 
 // Response for delete operation
@@ -74,7 +74,7 @@ message DeleteCargoResponse {
 
 // Cargo response message
 message CargoResponse {
-  string id = 1;
+  int32 id = 1;
   string nome = 2;
   string descricao = 3;
   double nivel_salarial = 4;

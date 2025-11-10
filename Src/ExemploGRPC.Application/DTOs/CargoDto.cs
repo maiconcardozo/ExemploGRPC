@@ -5,7 +5,7 @@ namespace ExemploGRPC.Application.DTOs;
 /// </summary>
 public class CargoDto
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
     public string Nome { get; set; } = string.Empty;
     public string? Descricao { get; set; }
     public decimal? NivelSalarial { get; set; }

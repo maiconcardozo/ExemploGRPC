@@ -17,7 +17,7 @@ public class CargoRepository : ICargoRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<Cargo?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Cargo?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _context.Cargos
             .Include(c => c.ClienteCargos)
@@ -52,7 +52,7 @@ public class CargoRepository : ICargoRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Cargo>> GetByClienteIdAsync(Guid clienteId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Cargo>> GetByClienteIdAsync(int clienteId, CancellationToken cancellationToken = default)
     {
         return await _context.Cargos
             .Include(c => c.ClienteCargos)
@@ -74,7 +74,7 @@ public class CargoRepository : ICargoRepository
 
     public Task DeleteAsync(Cargo cargo, CancellationToken cancellationToken = default)
     {
-        cargo.MarkAsDeleted();
+        cargo.SoftDelete("System");
         _context.Cargos.Update(cargo);
         return Task.CompletedTask;
     }

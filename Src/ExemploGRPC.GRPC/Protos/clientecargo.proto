@@ -30,17 +30,17 @@ service ClienteCargoService {
 
 // Request to get cliente-cargo by ID
 message GetClienteCargoRequest {
-  string id = 1;
+  int32 id = 1;
 }
 
 // Request to get associations by cliente ID
 message GetClienteCargosByClienteIdRequest {
-  string cliente_id = 1;
+  int32 cliente_id = 1;
 }
 
 // Request to get associations by cargo ID
 message GetClienteCargosByCargoIdRequest {
-  string cargo_id = 1;
+  int32 cargo_id = 1;
 }
 
 // Request to get all associations
@@ -54,21 +54,21 @@ message GetClienteCargosResponse {
 
 // Request to create an association
 message CreateClienteCargoRequest {
-  string cliente_id = 1;
-  string cargo_id = 2;
+  int32 cliente_id = 1;
+  int32 cargo_id = 2;
   bool is_principal = 3;
 }
 
 // Request to update an association
 message UpdateClienteCargoRequest {
-  string id = 1;
+  int32 id = 1;
   string data_fim = 2;
   bool is_principal = 3;
 }
 
 // Request to delete an association
 message DeleteClienteCargoRequest {
-  string id = 1;
+  int32 id = 1;
 }
 
 // Response for delete operation
@@ -79,9 +79,9 @@ message DeleteClienteCargoResponse {
 
 // ClienteCargo response message
 message ClienteCargoResponse {
-  string id = 1;
-  string cliente_id = 2;
-  string cargo_id = 3;
+  int32 id = 1;
+  int32 cliente_id = 2;
+  int32 cargo_id = 3;
   string data_atribuicao = 4;
   string data_fim = 5;
   bool is_principal = 6;

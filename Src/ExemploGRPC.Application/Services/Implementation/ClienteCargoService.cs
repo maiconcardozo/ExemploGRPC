@@ -21,19 +21,19 @@ public class ClienteCargoService : IClienteCargoService
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task<ClienteCargoDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<ClienteCargoDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         var clienteCargo = await _unitOfWork.ClienteCargos.GetByIdAsync(id, cancellationToken);
         return clienteCargo == null ? null : _mapper.Map<ClienteCargoDto>(clienteCargo);
     }
 
-    public async Task<IEnumerable<ClienteCargoDto>> GetByClienteIdAsync(Guid clienteId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ClienteCargoDto>> GetByClienteIdAsync(int clienteId, CancellationToken cancellationToken = default)
     {
         var clienteCargos = await _unitOfWork.ClienteCargos.GetByClienteIdAsync(clienteId, cancellationToken);
         return _mapper.Map<IEnumerable<ClienteCargoDto>>(clienteCargos);
     }
 
-    public async Task<IEnumerable<ClienteCargoDto>> GetByCargoIdAsync(Guid cargoId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ClienteCargoDto>> GetByCargoIdAsync(int cargoId, CancellationToken cancellationToken = default)
     {
         var clienteCargos = await _unitOfWork.ClienteCargos.GetByCargoIdAsync(cargoId, cancellationToken);
         return _mapper.Map<IEnumerable<ClienteCargoDto>>(clienteCargos);
@@ -68,7 +68,7 @@ public class ClienteCargoService : IClienteCargoService
         return _mapper.Map<ClienteCargoDto>(clienteCargo);
     }
 
-    public async Task<ClienteCargoDto> UpdateAsync(Guid id, UpdateClienteCargoDto dto, CancellationToken cancellationToken = default)
+    public async Task<ClienteCargoDto> UpdateAsync(int id, UpdateClienteCargoDto dto, CancellationToken cancellationToken = default)
     {
         var clienteCargo = await _unitOfWork.ClienteCargos.GetByIdAsync(id, cancellationToken)
             ?? throw new KeyNotFoundException($"ClienteCargo com ID {id} não encontrado");
@@ -93,7 +93,7 @@ public class ClienteCargoService : IClienteCargoService
         return _mapper.Map<ClienteCargoDto>(clienteCargo);
     }
 
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var clienteCargo = await _unitOfWork.ClienteCargos.GetByIdAsync(id, cancellationToken)
             ?? throw new KeyNotFoundException($"ClienteCargo com ID {id} não encontrado");

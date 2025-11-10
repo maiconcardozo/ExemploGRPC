@@ -22,7 +22,7 @@ public class GrpcCargoService : CargoService.CargoServiceBase
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             var cargo = await _cargoService.GetByIdAsync(id, context.CancellationToken);
 
             if (cargo == null)
@@ -116,7 +116,7 @@ public class GrpcCargoService : CargoService.CargoServiceBase
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             var updateDto = new UpdateCargoDto
             {
                 Nome = request.Nome,
@@ -150,7 +150,7 @@ public class GrpcCargoService : CargoService.CargoServiceBase
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             await _cargoService.DeleteAsync(id, context.CancellationToken);
 
             return new DeleteCargoResponse
@@ -178,7 +178,7 @@ public class GrpcCargoService : CargoService.CargoServiceBase
     {
         return new CargoResponse
         {
-            Id = cargo.Id.ToString(),
+            Id = cargo.Id,
             Nome = cargo.Nome,
             Descricao = cargo.Descricao ?? string.Empty,
             NivelSalarial = (double)(cargo.NivelSalarial ?? 0),

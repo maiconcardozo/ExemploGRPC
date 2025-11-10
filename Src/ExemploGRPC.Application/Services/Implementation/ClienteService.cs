@@ -21,7 +21,7 @@ public class ClienteService : IClienteService
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task<ClienteDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<ClienteDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         var cliente = await _unitOfWork.Clientes.GetByIdAsync(id, cancellationToken);
         return cliente == null ? null : _mapper.Map<ClienteDto>(cliente);
@@ -60,7 +60,7 @@ public class ClienteService : IClienteService
         return _mapper.Map<ClienteDto>(cliente);
     }
 
-    public async Task<ClienteDto> UpdateAsync(Guid id, UpdateClienteDto dto, CancellationToken cancellationToken = default)
+    public async Task<ClienteDto> UpdateAsync(int id, UpdateClienteDto dto, CancellationToken cancellationToken = default)
     {
         var cliente = await _unitOfWork.Clientes.GetByIdAsync(id, cancellationToken)
             ?? throw new KeyNotFoundException($"Cliente com ID {id} não encontrado");
@@ -72,7 +72,7 @@ public class ClienteService : IClienteService
         return _mapper.Map<ClienteDto>(cliente);
     }
 
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var cliente = await _unitOfWork.Clientes.GetByIdAsync(id, cancellationToken)
             ?? throw new KeyNotFoundException($"Cliente com ID {id} não encontrado");
@@ -81,7 +81,7 @@ public class ClienteService : IClienteService
         await _unitOfWork.CommitAsync(cancellationToken);
     }
 
-    public async Task AddCargoAsync(Guid clienteId, Guid cargoId, CancellationToken cancellationToken = default)
+    public async Task AddCargoAsync(int clienteId, int cargoId, CancellationToken cancellationToken = default)
     {
         var cliente = await _unitOfWork.Clientes.GetByIdAsync(clienteId, cancellationToken)
             ?? throw new KeyNotFoundException($"Cliente com ID {clienteId} não encontrado");
@@ -94,7 +94,7 @@ public class ClienteService : IClienteService
         await _unitOfWork.CommitAsync(cancellationToken);
     }
 
-    public async Task RemoveCargoAsync(Guid clienteId, Guid cargoId, CancellationToken cancellationToken = default)
+    public async Task RemoveCargoAsync(int clienteId, int cargoId, CancellationToken cancellationToken = default)
     {
         var cliente = await _unitOfWork.Clientes.GetByIdAsync(clienteId, cancellationToken)
             ?? throw new KeyNotFoundException($"Cliente com ID {clienteId} não encontrado");

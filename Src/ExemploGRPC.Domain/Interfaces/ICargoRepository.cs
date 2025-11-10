@@ -11,7 +11,7 @@ public interface ICargoRepository
     /// <summary>
     /// Gets a cargo by ID
     /// </summary>
-    Task<Cargo?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Cargo?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a cargo by name
@@ -31,7 +31,7 @@ public interface ICargoRepository
     /// <summary>
     /// Gets cargos by cliente ID
     /// </summary>
-    Task<IEnumerable<Cargo>> GetByClienteIdAsync(Guid clienteId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Cargo>> GetByClienteIdAsync(int clienteId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds a new cargo

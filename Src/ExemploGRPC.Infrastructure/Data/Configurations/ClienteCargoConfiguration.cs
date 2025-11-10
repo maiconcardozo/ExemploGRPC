@@ -16,7 +16,7 @@ public class ClienteCargoConfiguration : IEntityTypeConfiguration<ClienteCargo>
         builder.HasKey(cc => cc.Id);
 
         builder.Property(cc => cc.Id)
-            .ValueGeneratedNever();
+            .ValueGeneratedOnAdd();
 
         builder.Property(cc => cc.ClienteId)
             .IsRequired();
@@ -33,16 +33,18 @@ public class ClienteCargoConfiguration : IEntityTypeConfiguration<ClienteCargo>
             .IsRequired()
             .HasDefaultValue(false);
 
-        builder.Property(cc => cc.CreatedAt)
+        builder.Property(cc => cc.DtCreated)
             .IsRequired();
 
-        builder.Property(cc => cc.UpdatedAt);
+        builder.Property(cc => cc.DtUpdated);
 
-        builder.Property(cc => cc.IsDeleted)
+        builder.Property(cc => cc.DtDeleted);
+
+        builder.Property(cc => cc.IsActive)
             .IsRequired()
-            .HasDefaultValue(false);
+            .HasDefaultValue(true);
 
-        builder.HasQueryFilter(cc => !cc.IsDeleted);
+        builder.HasQueryFilter(cc => cc.IsActive);
 
         // Create composite unique index to prevent duplicate associations
         builder.HasIndex(cc => new { cc.ClienteId, cc.CargoId })

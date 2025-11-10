@@ -16,7 +16,7 @@ public class CargoConfiguration : IEntityTypeConfiguration<Cargo>
         builder.HasKey(c => c.Id);
 
         builder.Property(c => c.Id)
-            .ValueGeneratedNever();
+            .ValueGeneratedOnAdd();
 
         builder.Property(c => c.Nome)
             .IsRequired()
@@ -31,16 +31,18 @@ public class CargoConfiguration : IEntityTypeConfiguration<Cargo>
         builder.Property(c => c.NivelSalarial)
             .HasPrecision(18, 2);
 
-        builder.Property(c => c.CreatedAt)
+        builder.Property(c => c.DtCreated)
             .IsRequired();
 
-        builder.Property(c => c.UpdatedAt);
+        builder.Property(c => c.DtUpdated);
 
-        builder.Property(c => c.IsDeleted)
+        builder.Property(c => c.DtDeleted);
+
+        builder.Property(c => c.IsActive)
             .IsRequired()
-            .HasDefaultValue(false);
+            .HasDefaultValue(true);
 
-        builder.HasQueryFilter(c => !c.IsDeleted);
+        builder.HasQueryFilter(c => c.IsActive);
 
         // Configure N-to-N relationship
         builder.HasMany(c => c.ClienteCargos)

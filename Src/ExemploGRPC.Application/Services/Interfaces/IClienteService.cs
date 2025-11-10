@@ -7,13 +7,13 @@ namespace ExemploGRPC.Application.Services.Interfaces;
 /// </summary>
 public interface IClienteService
 {
-    Task<ClienteDto?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<ClienteDto?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
     Task<ClienteDto?> GetByCpfAsync(string cpf, CancellationToken cancellationToken = default);
     Task<IEnumerable<ClienteDto>> GetAllAsync(CancellationToken cancellationToken = default);
     Task<IEnumerable<ClienteDto>> GetPagedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
     Task<ClienteDto> CreateAsync(CreateClienteDto dto, CancellationToken cancellationToken = default);
-    Task<ClienteDto> UpdateAsync(Guid id, UpdateClienteDto dto, CancellationToken cancellationToken = default);
-    Task DeleteAsync(Guid id, CancellationToken cancellationToken = default);
-    Task AddCargoAsync(Guid clienteId, Guid cargoId, CancellationToken cancellationToken = default);
-    Task RemoveCargoAsync(Guid clienteId, Guid cargoId, CancellationToken cancellationToken = default);
+    Task<ClienteDto> UpdateAsync(int id, UpdateClienteDto dto, CancellationToken cancellationToken = default);
+    Task DeleteAsync(int id, CancellationToken cancellationToken = default);
+    Task AddCargoAsync(int clienteId, int cargoId, CancellationToken cancellationToken = default);
+    Task RemoveCargoAsync(int clienteId, int cargoId, CancellationToken cancellationToken = default);
 }

@@ -22,9 +22,10 @@ public class MappingProfile : Profile
         CreateMap<UpdateClienteDto, Cliente>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.Cpf, opt => opt.Ignore())
-            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
-            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
-            .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
+            .ForMember(dest => dest.DtCreated, opt => opt.Ignore())
+            .ForMember(dest => dest.DtUpdated, opt => opt.Ignore())
+            .ForMember(dest => dest.DtDeleted, opt => opt.Ignore())
+            .ForMember(dest => dest.IsActive, opt => opt.Ignore())
             .ForMember(dest => dest.ClienteCargos, opt => opt.Ignore());
 
         // Cargo mappings
@@ -37,9 +38,10 @@ public class MappingProfile : Profile
 
         CreateMap<UpdateCargoDto, Cargo>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())
-            .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
-            .ForMember(dest => dest.IsDeleted, opt => opt.Ignore())
+            .ForMember(dest => dest.DtCreated, opt => opt.Ignore())
+            .ForMember(dest => dest.DtUpdated, opt => opt.Ignore())
+            .ForMember(dest => dest.DtDeleted, opt => opt.Ignore())
+            .ForMember(dest => dest.IsActive, opt => opt.Ignore())
             .ForMember(dest => dest.ClienteCargos, opt => opt.Ignore());
 
         // ClienteCargo mappings

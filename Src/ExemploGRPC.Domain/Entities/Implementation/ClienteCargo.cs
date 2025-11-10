@@ -1,4 +1,4 @@
-using ExemploGRPC.Domain.Entities.Base;
+using Foundation.Base.Domain.Implementation;
 
 namespace ExemploGRPC.Domain.Entities.Implementation;
 
@@ -6,12 +6,12 @@ namespace ExemploGRPC.Domain.Entities.Implementation;
 /// ClienteCargo entity - Join table for N-to-N relationship
 /// Represents the association between a Cliente and a Cargo
 /// </summary>
-public class ClienteCargo : EntityBase
+public class ClienteCargo : Entity
 {
     /// <summary>
     /// ID of the associated Cliente
     /// </summary>
-    public Guid ClienteId { get; private set; }
+    public int ClienteId { get; private set; }
 
     /// <summary>
     /// Navigation property to Cliente
@@ -21,7 +21,7 @@ public class ClienteCargo : EntityBase
     /// <summary>
     /// ID of the associated Cargo
     /// </summary>
-    public Guid CargoId { get; private set; }
+    public int CargoId { get; private set; }
 
     /// <summary>
     /// Navigation property to Cargo
@@ -48,7 +48,7 @@ public class ClienteCargo : EntityBase
     {
     }
 
-    public ClienteCargo(Guid clienteId, Guid cargoId, bool isPrincipal = false) : this()
+    public ClienteCargo(int clienteId, int cargoId, bool isPrincipal = false) : this()
     {
         ClienteId = clienteId;
         CargoId = cargoId;
@@ -66,7 +66,7 @@ public class ClienteCargo : EntityBase
             throw new ArgumentException("Data fim não pode ser anterior à data de atribuição", nameof(dataFim));
 
         DataFim = dataFim;
-        MarkAsUpdated();
+        UpdateAuditInfo("System");
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class ClienteCargo : EntityBase
     public void SetAsPrincipal()
     {
         IsPrincipal = true;
-        MarkAsUpdated();
+        UpdateAuditInfo("System");
     }
 
     /// <summary>
@@ -84,15 +84,15 @@ public class ClienteCargo : EntityBase
     public void RemovePrincipal()
     {
         IsPrincipal = false;
-        MarkAsUpdated();
+        UpdateAuditInfo("System");
     }
 
-    public override void Validate()
+    public void Validate()
     {
-        if (ClienteId == Guid.Empty)
+        if (ClienteId == 0)
             throw new ArgumentException("ClienteId é obrigatório", nameof(ClienteId));
 
-        if (CargoId == Guid.Empty)
+        if (CargoId == 0)
             throw new ArgumentException("CargoId é obrigatório", nameof(CargoId));
 
         if (DataFim.HasValue && DataFim.Value < DataAtribuicao)

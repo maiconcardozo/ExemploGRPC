@@ -11,7 +11,7 @@ public interface IClienteRepository
     /// <summary>
     /// Gets a cliente by ID
     /// </summary>
-    Task<Cliente?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Cliente?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets a cliente by CPF
@@ -31,7 +31,7 @@ public interface IClienteRepository
     /// <summary>
     /// Gets clientes by cargo ID
     /// </summary>
-    Task<IEnumerable<Cliente>> GetByCargoIdAsync(Guid cargoId, CancellationToken cancellationToken = default);
+    Task<IEnumerable<Cliente>> GetByCargoIdAsync(int cargoId, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds a new cliente

@@ -22,7 +22,7 @@ public class GrpcClienteService : ClienteService.ClienteServiceBase
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             var cliente = await _clienteService.GetByIdAsync(id, context.CancellationToken);
 
             if (cliente == null)
@@ -124,7 +124,7 @@ public class GrpcClienteService : ClienteService.ClienteServiceBase
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             var updateDto = new UpdateClienteDto
             {
                 Nome = request.Nome,
@@ -158,7 +158,7 @@ public class GrpcClienteService : ClienteService.ClienteServiceBase
     {
         try
         {
-            var id = Guid.Parse(request.Id);
+            var id = request.Id;
             await _clienteService.DeleteAsync(id, context.CancellationToken);
 
             return new DeleteClienteResponse
@@ -186,8 +186,8 @@ public class GrpcClienteService : ClienteService.ClienteServiceBase
     {
         try
         {
-            var clienteId = Guid.Parse(request.ClienteId);
-            var cargoId = Guid.Parse(request.CargoId);
+            var clienteId = request.ClienteId;
+            var cargoId = request.CargoId;
 
             await _clienteService.AddCargoAsync(clienteId, cargoId, context.CancellationToken);
 
@@ -220,8 +220,8 @@ public class GrpcClienteService : ClienteService.ClienteServiceBase
     {
         try
         {
-            var clienteId = Guid.Parse(request.ClienteId);
-            var cargoId = Guid.Parse(request.CargoId);
+            var clienteId = request.ClienteId;
+            var cargoId = request.CargoId;
 
             await _clienteService.RemoveCargoAsync(clienteId, cargoId, context.CancellationToken);
 
@@ -254,7 +254,7 @@ public class GrpcClienteService : ClienteService.ClienteServiceBase
     {
         var response = new ClienteResponse
         {
-            Id = cliente.Id.ToString(),
+            Id = cliente.Id,
             Nome = cliente.Nome,
             Email = cliente.Email,
             Cpf = cliente.Cpf,
@@ -267,7 +267,7 @@ public class GrpcClienteService : ClienteService.ClienteServiceBase
         {
             response.Cargos.AddRange(cliente.Cargos.Select(c => new CargoMessage
             {
-                Id = c.Id.ToString(),
+                Id = c.Id,
                 Nome = c.Nome,
                 Descricao = c.Descricao ?? string.Empty,
                 NivelSalarial = (double)(c.NivelSalarial ?? 0)

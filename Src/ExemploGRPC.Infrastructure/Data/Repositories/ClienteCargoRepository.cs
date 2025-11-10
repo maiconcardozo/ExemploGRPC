@@ -17,7 +17,7 @@ public class ClienteCargoRepository : IClienteCargoRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<ClienteCargo?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<ClienteCargo?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _context.ClienteCargos
             .Include(cc => cc.Cliente)
@@ -25,7 +25,7 @@ public class ClienteCargoRepository : IClienteCargoRepository
             .FirstOrDefaultAsync(cc => cc.Id == id, cancellationToken);
     }
 
-    public async Task<IEnumerable<ClienteCargo>> GetByClienteIdAsync(Guid clienteId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ClienteCargo>> GetByClienteIdAsync(int clienteId, CancellationToken cancellationToken = default)
     {
         return await _context.ClienteCargos
             .Include(cc => cc.Cliente)
@@ -34,7 +34,7 @@ public class ClienteCargoRepository : IClienteCargoRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<ClienteCargo>> GetByCargoIdAsync(Guid cargoId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<ClienteCargo>> GetByCargoIdAsync(int cargoId, CancellationToken cancellationToken = default)
     {
         return await _context.ClienteCargos
             .Include(cc => cc.Cliente)
@@ -43,7 +43,7 @@ public class ClienteCargoRepository : IClienteCargoRepository
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<ClienteCargo?> GetByClienteAndCargoAsync(Guid clienteId, Guid cargoId, CancellationToken cancellationToken = default)
+    public async Task<ClienteCargo?> GetByClienteAndCargoAsync(int clienteId, int cargoId, CancellationToken cancellationToken = default)
     {
         return await _context.ClienteCargos
             .Include(cc => cc.Cliente)
@@ -72,12 +72,12 @@ public class ClienteCargoRepository : IClienteCargoRepository
 
     public Task DeleteAsync(ClienteCargo clienteCargo, CancellationToken cancellationToken = default)
     {
-        clienteCargo.MarkAsDeleted();
+        clienteCargo.SoftDelete("System");
         _context.ClienteCargos.Update(clienteCargo);
         return Task.CompletedTask;
     }
 
-    public async Task<bool> ExistsAsync(Guid clienteId, Guid cargoId, CancellationToken cancellationToken = default)
+    public async Task<bool> ExistsAsync(int clienteId, int cargoId, CancellationToken cancellationToken = default)
     {
         return await _context.ClienteCargos.AnyAsync(cc => cc.ClienteId == clienteId && cc.CargoId == cargoId, cancellationToken);
     }
