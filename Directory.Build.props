@@ -1,0 +1,4 @@
+<Project>
+  <!-- Import build configuration from the build/ directory -->
+  <Import Project="build/Directory.Build.props" />
+</Project>
