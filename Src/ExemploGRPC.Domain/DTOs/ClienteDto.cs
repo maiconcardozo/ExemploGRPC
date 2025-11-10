@@ -1,4 +1,4 @@
-namespace ExemploGRPC.Application.DTOs;
+namespace ExemploGRPC.Domain.DTOs;
 
 /// <summary>
 /// Data Transfer Object for Cliente

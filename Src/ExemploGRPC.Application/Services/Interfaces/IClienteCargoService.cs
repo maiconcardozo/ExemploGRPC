@@ -1,4 +1,4 @@
-using ExemploGRPC.Application.DTOs;
+using ExemploGRPC.Domain.DTOs;
 
 namespace ExemploGRPC.Application.Services.Interfaces;
 

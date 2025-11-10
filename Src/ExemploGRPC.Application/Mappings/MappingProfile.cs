@@ -1,5 +1,5 @@
 using AutoMapper;
-using ExemploGRPC.Application.DTOs;
+using ExemploGRPC.Domain.DTOs;
 using ExemploGRPC.Domain.Entities.Implementation;
 
 namespace ExemploGRPC.Application.Mappings;
