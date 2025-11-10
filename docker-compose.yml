@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: exemplograpc-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: exemplograpc
+      MYSQL_USER: grpcuser
+      MYSQL_PASSWORD: grpcpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - grpc-network
+
+  # GRPC Server
+  grpc-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: exemplograpc-server
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Server=mysql;Port=3306;Database=exemplograpc;User=grpcuser;Password=grpcpassword;
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - grpc-network
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  grpc-network:
+    driver: bridge
